@@ -1,0 +1,4 @@
+2019-05-27 16:35:17 ERROR  : ERROR:  column "spclocation" does not exist
+LINE 1: SELECT ts.oid, spcname, spclocation, spcoptions, pg_get_user...
+                                ^
+2019-05-27 16:35:19 ERROR  : Column not found in pgSet: rolcatupdate
