@@ -62,18 +62,19 @@ public class ServiceUsuario {
 //SERVIÇO DE AUTENTICAÇÃO USUARIO
 			@GET
 			@Path("autenticar/{login}/{senha}")
-			public String autenticar(@PathParam("login") String login, @PathParam("senha") String  senha) throws SQLException {
+			public int
+			autenticar(@PathParam("login") String login, @PathParam("senha") String  senha) throws SQLException {
 				
 				Usuario dados = new Usuario();
 				dados.setLogin(login);
 				dados.setSenha(senha);
-				String msg = "";
+				int msg = 0;
 				Gson gson = new Gson();	
 				gson.toJson(dados, Usuario.class);
 				if(ControllerUsuario.verificar(dados) == 1) {
-					msg = "Usuario logado com sucesso.";
+					msg = 1;
 				}else {
-					msg = "Usuario não localizado";
+					msg = 0;
 				}
 				return msg;
 					

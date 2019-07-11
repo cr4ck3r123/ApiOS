@@ -7,7 +7,10 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,6 +20,7 @@ import controle.ControllerFuncionario;
 import controle.ControllerOS;
 import modelo.Cliente;
 import modelo.Funcionario;
+import modelo.OS;
 import modelo.Veiculo;
 
 
@@ -93,4 +97,41 @@ public class ServiceOS {
 		int id = os.retornaId();	
 		return id;
 	}
+	
+	
+	//METODO INSERIR OS
+	@GET
+	@Path("idFuncionario/{funcionario}")
+	@Consumes("application/json")
+	public int idFuncionario(@javax.ws.rs.PathParam("funcionario") String nome) throws SQLException{
+		Gson g = new Gson();
+		ControllerOS  os = new ControllerOS();
+		int id = os.retornoIdFun(nome);	
+		
+		return id;
+		
+	}
+	
+	
+	//-------------- ADICIONA OS
+	@POST
+	@Path("/adicionar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public int adicionar(OS os) {
+		int i = 0;
+		try {
+
+			if (ControllerOS.addOS(os) == i) {
+				i = 1;
+				System.out.print("ok");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return i;
+	}
+	
 }

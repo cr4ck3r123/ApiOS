@@ -101,7 +101,6 @@ public class ControllerUsuario {
 		
 		while(rs.next()) {
 			if(rs.getString("login").equals(dados.getLogin()) && rs.getString("senha").equals(dados.getSenha())) {
-	       System.out.print("Usuario logado com sucesso....");
 			i=1;
 			}
 		}

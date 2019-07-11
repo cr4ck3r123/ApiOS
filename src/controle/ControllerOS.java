@@ -10,6 +10,7 @@ import java.util.List;
 import dao.Conexao;
 import modelo.Cliente;
 import modelo.Funcionario;
+import modelo.OS;
 import modelo.Veiculo;
 
 public class ControllerOS {
@@ -107,4 +108,48 @@ public class ControllerOS {
     	return id;
     }
     
+    
+    //RETORNO ID FUNCIONARIO
+    public int retornoIdFun(String nome) throws SQLException{
+    	
+    	Connection conexao = Conexao.conector();
+		int idGerado = 0;
+		String sql = "select idfuncionario from funcionario where nome = ?";
+		PreparedStatement stm = conexao.prepareStatement(sql);
+		stm.setString(1, nome);
+	    ResultSet rst = stm.executeQuery();
+		
+	    while (rst.next()) {
+			
+	    	idGerado = rst.getInt(1);
+		}
+	    
+	    	return idGerado;
+    }
+    
+  //INSERIR OS
+	public static int addOS(OS os) throws Exception {
+	
+		
+		Connection conexao = Conexao.conector();
+		
+		String sql = "insert into ordemservico (idfuncionario, tipo,  defeito, data, hora, situacao, idveiculo, idpessoa, idservicos) \r\n" + 
+				"values (?,  ?,  ?, curdate(), curtime(), ?, ?, ?, 7)";
+	   
+	    PreparedStatement stm = conexao.prepareStatement(sql);
+		stm.setInt(1, os.getIdfuncionario());
+		stm.setString(2, os.getTipo());
+		stm.setString(3, os.getDefeito());
+		stm.setString(4, os.getSituacao());
+		stm.setInt(5, os.getIdveiculo());
+		stm.setInt(6, os.getIdpessoa());
+		
+	    stm.execute();
+
+		return 0;
+	}
+
+    
+    
+   
 }
